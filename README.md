@@ -64,6 +64,14 @@ Aplikacja startuje na porcie 8080 (inny port: `--server.port=18080`).
 mvn test
 ```
 
+### Dokumentacja (Javadoc)
+
+```sh
+mvn javadoc:javadoc
+```
+
+Wygenerowana dokumentacja: `target/site/apidocs/index.html`. CI uruchamia Javadoc przy każdym buildzie, więc błędne komentarze blokują merge.
+
 ### Hooki gita (pre-commit)
 
 Jednorazowo po sklonowaniu repo (`pre-commit` jest w środowisku Nix, bez Nixa: `uv tool install pre-commit`):
