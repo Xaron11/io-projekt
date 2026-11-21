@@ -33,3 +33,52 @@ Przewidywany czas/capacity: 64h
 - Piotr: 4h
 - Damian: 4h
 - Bartosz: 4h
+
+## Uruchomienie
+
+### Wymagania
+
+- JDK 11
+- Maven 3
+
+Alternatywnie z Nixem: `nix develop` albo `direnv allow` daje gotowe środowisko deweloperskie.
+
+### Budowanie i uruchamianie
+
+```sh
+mvn spring-boot:run
+```
+
+lub
+
+```sh
+mvn package
+java -jar target/json-tools-0.1.jar
+```
+
+Aplikacja startuje na porcie 8080 (inny port: `--server.port=18080`).
+
+### Testy
+
+```sh
+mvn test
+```
+
+### Przykładowe zapytania
+
+curl:
+
+```sh
+curl -X POST 'localhost:8080/api/json?transforms=minify' \
+     -H 'Content-Type: application/json' \
+     -d '{"a": 1, "b": [1, 2]}'
+```
+
+HTTPie:
+
+```sh
+http POST localhost:8080/api/json transforms==minify a:=1 b:='[1, 2]'
+http POST localhost:8080/api/json transforms==minify < data.json
+```
+
+Kilka transformacji podaje się po przecinku: `transforms==minify,sort`.
