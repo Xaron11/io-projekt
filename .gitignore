@@ -1,0 +1,17 @@
+*.class
+*.log
+target/
+.idea/
+*.iml
+out/
+.gradle/
+build/
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+.DS_Store
+Thumbs.db
+.env
+.env.*
