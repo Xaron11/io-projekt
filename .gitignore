@@ -15,3 +15,6 @@ bin/
 Thumbs.db
 .env
 .env.*
+
+.direnv/
+result
