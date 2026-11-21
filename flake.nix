@@ -28,6 +28,7 @@
               pkgs.curl
               pkgs.jq
               pkgs.jdt-language-server
+              pkgs.pre-commit
             ];
 
             JAVA_HOME = jdk.home;

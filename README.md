@@ -64,6 +64,14 @@ Aplikacja startuje na porcie 8080 (inny port: `--server.port=18080`).
 mvn test
 ```
 
+### Hooki gita (pre-commit)
+
+Jednorazowo po sklonowaniu repo (`pre-commit` jest w środowisku Nix, bez Nixa: `uv tool install pre-commit`):
+
+```sh
+pre-commit install
+```
+
 ### Przykładowe zapytania
 
 curl:
