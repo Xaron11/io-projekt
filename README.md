@@ -53,7 +53,7 @@ lub
 
 ```sh
 mvn package
-java -jar target/json-tools-0.1.jar
+java -jar target/json-tools-0.1.0-SNAPSHOT.jar
 ```
 
 Aplikacja startuje na porcie 8080 (inny port: `--server.port=18080`).
@@ -79,6 +79,18 @@ Jednorazowo po sklonowaniu repo (`pre-commit` jest w środowisku Nix, bez Nixa: 
 ```sh
 pre-commit install
 ```
+
+### Wydania (releases)
+
+Wersja w `pom.xml` to następna planowana wersja z sufiksem `-SNAPSHOT` (np. `0.1.0-SNAPSHOT`). Wydanie można zrobić w dowolnym momencie, tagując commit:
+
+```sh
+git switch main && git pull
+git tag -a v0.1.0 -m "Release 0.1.0"
+git push origin v0.1.0
+```
+
+Workflow `Release` buduje projekt z wersją z taga i tworzy GitHub Release z plikami `json-tools-0.1.0.jar` i `json-tools-0.1.0-javadoc.zip` (dokumentacja HTML) oraz notatkami wygenerowanymi z PR-ów. Po wydaniu zmieniamy wersję w `pom.xml` na kolejną, np. `0.2.0-SNAPSHOT`.
 
 ### Przykładowe zapytania
 
