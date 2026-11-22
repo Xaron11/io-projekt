@@ -39,7 +39,7 @@ jobs:
           fi
 
       - name: Build and test
-        run: mvn -B -ntp verify javadoc:jar
+        run: mvn -B -ntp verify
 
       - name: Create GitHub release
         env:

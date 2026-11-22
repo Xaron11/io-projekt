@@ -68,11 +68,12 @@ mvn test
 
 ### Dokumentacja (Javadoc)
 
-```sh
-mvn javadoc:javadoc
-```
+Dokumentacja generuje się automatycznie przy każdym budowaniu (`mvn package`, `mvn verify`):
 
-Wygenerowana dokumentacja: `target/site/apidocs/index.html`. CI uruchamia Javadoc przy każdym buildzie, więc błędne komentarze blokują merge.
+- `target/apidocs/index.html` - dokumentacja HTML
+- `target/json-tools-<wersja>-javadoc.jar` - spakowana dokumentacja
+
+Błędne komentarze Javadoc przerywają build.
 
 ### Hooki gita (pre-commit)
 

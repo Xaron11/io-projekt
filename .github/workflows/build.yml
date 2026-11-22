@@ -33,4 +33,4 @@ jobs:
           problem-matcher: true
 
       - name: Build and test
-        run: mvn -B -ntp verify javadoc:javadoc
+        run: mvn -B -ntp verify
