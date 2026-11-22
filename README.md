@@ -12,6 +12,8 @@ Zasady punktowania sprintów (DoD): https://docs.google.com/spreadsheets/d/e/2PA
 
 Product Backlog (Arkusz kalkulacyjny): https://docs.google.com/spreadsheets/d/e/2PACX-1vTn6j3M8pmGEzrsQk8mXse7lVHUdhYWkfxbkQiYI23rBtwM4N3bWw0qtupW-gesfCkcYasnZ-eEXl-F/pubhtml
 
+Product Backlog i Sprint Backlog (GitHub Project): https://github.com/users/Xaron11/projects/6
+
 Daily Scrum: wtorki, piątki i niedziele ok. godz. 11:00 (czas trwania: 15 minut)
 
 ## Zespół (4 osoby, gr. LAB 10)
