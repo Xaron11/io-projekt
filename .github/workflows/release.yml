@@ -30,8 +30,13 @@ jobs:
           cache: maven
           problem-matcher: true
 
-      - name: Set version from tag
-        run: mvn -B -ntp versions:set -DnewVersion="${GITHUB_REF_NAME#v}" -DgenerateBackupPoms=false
+      - name: Check that the tag matches the pom.xml version
+        run: |
+          pom_version=$(mvn -B -ntp -q help:evaluate -Dexpression=project.version -DforceStdout)
+          if [ "$pom_version" != "${GITHUB_REF_NAME#v}" ]; then
+            echo "::error file=pom.xml::Tag $GITHUB_REF_NAME does not match pom.xml version $pom_version"
+            exit 1
+          fi
 
       - name: Build and test
         run: mvn -B -ntp verify javadoc:jar

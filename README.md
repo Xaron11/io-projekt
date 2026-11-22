@@ -84,15 +84,25 @@ pre-commit install
 
 ### Wydania (releases)
 
-Wersja w `pom.xml` to następna planowana wersja z sufiksem `-SNAPSHOT` (np. `0.1.0-SNAPSHOT`). Wydanie można zrobić w dowolnym momencie, tagując commit:
+Między wydaniami wersja w `pom.xml` ma sufiks `-SNAPSHOT` (np. `0.1.0-SNAPSHOT`). Tag musi odpowiadać wersji w `pom.xml`, więc najpierw ustawiamy wersję, potem tagujemy:
 
 ```sh
 git switch main && git pull
+mvn versions:set -DnewVersion=0.1.0 -DgenerateBackupPoms=false
+git commit -am "chore: release 0.1.0"
 git tag -a v0.1.0 -m "Release 0.1.0"
-git push origin v0.1.0
+git push origin main v0.1.0
 ```
 
-Workflow `Release` buduje projekt z wersją z taga i tworzy GitHub Release z plikami `json-tools-0.1.0.jar` i `json-tools-0.1.0-javadoc.zip` (dokumentacja HTML) oraz notatkami wygenerowanymi z PR-ów. Po wydaniu zmieniamy wersję w `pom.xml` na kolejną, np. `0.2.0-SNAPSHOT`.
+Workflow `Release` sprawdza, czy tag zgadza się z wersją w `pom.xml`, buduje projekt i tworzy GitHub Release z plikami `json-tools-0.1.0.jar` i `json-tools-0.1.0-javadoc.zip` (dokumentacja HTML).
+
+Po wydaniu przechodzimy na kolejną wersję rozwojową:
+
+```sh
+mvn versions:set -DnewVersion=0.2.0-SNAPSHOT -DgenerateBackupPoms=false
+git commit -am "chore: prepare 0.2.0-SNAPSHOT"
+git push
+```
 
 ### Przykładowe zapytania
 
