@@ -1,6 +1,7 @@
 package pl.put.poznan.jsontools.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -11,38 +12,38 @@ import pl.put.poznan.jsontools.logic.JsonDocument;
 import pl.put.poznan.jsontools.logic.JsonDocumentSerializer;
 import pl.put.poznan.jsontools.logic.TransformChainBuilder;
 import pl.put.poznan.jsontools.logic.OutputFormat;
+import pl.put.poznan.jsontools.logic.exception.InvalidJsonException;
 
 /**
- * REST entry point of JSON Tools, available under {@code /api/json}.
- *
- * <p>Accepts a JSON document, parses it into a Jackson {@link JsonNode} tree and passes it
- * to {@link } together with the requested transforms.
+ * REST endpoint {@code /api/json} for transforming JSON documents.
  */
 @RestController
 @RequestMapping("/api/json")
 public class JsonToolsController {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper().enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
     private static final TransformChainBuilder chainBuilder = TransformChainBuilder.withDefaultTransforms();
     private static final JsonDocumentSerializer serializer = new JsonDocumentSerializer();
 
     /**
-     * Transforms the JSON document sent in the request body.
+     * Transforms the JSON document from the request body,
+     * e.g. {@code POST /api/json?transforms=minify}.
      *
-     * <p>Example: {@code POST /api/json?transforms=minify,sort} with a JSON body.
-     *
-     * @param json       request body; must be a valid JSON document
-     * @param transforms names of the transforms to apply, in order, given as a
-     *                   comma-separated {@code transforms} query parameter (optional)
-     * @return the transformed document as JSON
-     * @throws JsonProcessingException if the request body is not valid JSON
+     * @param json       JSON document
+     * @param transforms comma-separated transform names (optional)
+     * @return transformed JSON
+     * @throws JsonProcessingException if the body is not valid JSON
      */
     @PostMapping(consumes = "application/json", produces = "application/json")
     public String transform(@RequestBody String json,
                             @RequestParam(value = "transforms", defaultValue = "") String[] transforms) throws JsonProcessingException {
 
         JsonNode rootJsonNode = mapper.readTree(json);
+
+        if (rootJsonNode.isMissingNode()) {
+            throw new InvalidJsonException("Request body is empty");
+        }
 
         logger.debug(rootJsonNode.toString());
 
